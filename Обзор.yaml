@@ -2,11 +2,37 @@ views:
   - path: default_view
     title: Дом
     cards:
-      - show_current: true
-        show_forecast: true
-        type: weather-forecast
-        entity: weather.forecast_home_assistant
-        forecast_type: daily
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Погода
+          - show_current: true
+            show_forecast: true
+            type: weather-forecast
+            entity: weather.forecast_home_assistant
+            forecast_type: daily
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Свет
+          - type: grid
+            cards:
+              - type: tile
+                entity: light.chandelier_leonid
+                name: Люстра Лёня
+                vertical: true
+              - type: tile
+                entity: light.chandelier_dima
+                name: Люстра Дима
+                vertical: true
+              - type: tile
+                entity: light.yeelight_colorb_0x1c017ecf
+                vertical: true
+                name: Лампа Лёня
+              - type: tile
+                entity: light.yeelight_color_0x12a673b8
+                vertical: true
+                name: Лампа Дима
   - title: Лёня
     path: leonid
     cards:
