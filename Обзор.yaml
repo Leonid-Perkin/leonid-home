@@ -1,0 +1,302 @@
+views:
+  - path: default_view
+    title: Дом
+    cards:
+      - show_current: true
+        show_forecast: true
+        type: weather-forecast
+        entity: weather.forecast_home_assistant
+        forecast_type: daily
+  - title: Лёня
+    path: leonid
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Свет
+          - type: custom:mushroom-light-card
+            entity: light.chandelier_leonid
+            show_brightness_control: false
+            use_light_color: false
+            show_color_temp_control: false
+            show_color_control: false
+          - type: custom:mushroom-light-card
+            entity: light.yeelight_colorb_0x1c017ecf
+            name: Лампа
+            fill_container: false
+            use_light_color: true
+            show_brightness_control: true
+            show_color_temp_control: true
+            show_color_control: true
+          - type: custom:mushroom-light-card
+            entity: light.yeelight_lamp15_0x1e4a2025
+            name: Лампа над монитором
+            show_brightness_control: true
+            use_light_color: true
+            show_color_temp_control: true
+            show_color_control: false
+          - type: custom:mushroom-light-card
+            entity: light.yeelight_lamp15_0x1e4a2025_ambilight
+            name: Лампа над монитором Ambilight
+            show_brightness_control: true
+            use_light_color: true
+            show_color_temp_control: true
+            show_color_control: true
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Телевизор
+          - type: custom:android-tv-card
+            remote_id: remote.mitv_mssp1
+            slider_id: media_player.mitv_mssp1
+            custom_actions:
+              slider:
+                icon: mdi:music-note
+            rows:
+              - - back
+                - power
+                - home
+              - - slider
+              - - - youtube
+                  - null
+                  - spotify
+                - touchpad
+              - - previous
+                - play_pause
+                - next
+          - type: media-control
+            entity: media_player.mitv_mssp1_2
+      - type: media-control
+        entity: media_player.lenia
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Orange pi 3b
+          - type: entities
+            entities:
+              - entity: sensor.system_monitor_disk_usage
+              - entity: sensor.system_monitor_disk_free
+              - entity: sensor.system_monitor_memory_usage
+              - entity: sensor.system_monitor_processor_use
+              - entity: sensor.system_monitor_memory_use
+              - entity: sensor.system_monitor_last_boot
+              - entity: sensor.system_monitor_processor_temperature
+            state_color: false
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Будильник
+          - type: tile
+            entity: input_boolean.alarm_clock_time_button
+            tap_action:
+              action: toggle
+            icon_tap_action:
+              action: toggle
+            name: Будильник
+          - type: tile
+            entity: input_datetime.alarm_clock_time
+            name: Время будильника
+  - title: Дима
+    path: unknown
+    visible:
+      - user: b0cd9107b3384589bb7fad80f3c2f666
+      - user: 62f479e3316e4f018753d9db5025c1c3
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Свет
+          - type: custom:mushroom-light-card
+            entity: light.chandelier_dima
+            show_brightness_control: false
+            use_light_color: false
+            show_color_temp_control: false
+            show_color_control: false
+          - type: custom:mushroom-light-card
+            entity: light.yeelight_color_0x12a673b8
+            name: Лампа
+            fill_container: false
+            use_light_color: true
+            show_brightness_control: true
+            show_color_temp_control: true
+            show_color_control: true
+          - type: custom:mushroom-light-card
+            entity: light.nastolnaia_lampa
+            fill_container: false
+            use_light_color: false
+            show_brightness_control: true
+            show_color_temp_control: false
+            show_color_control: false
+          - type: custom:mushroom-light-card
+            fill_container: false
+            use_light_color: false
+            show_brightness_control: true
+            show_color_temp_control: false
+            show_color_control: false
+            entity: light.nastolnaia_lampa_ambient_light
+          - type: custom:mushroom-light-card
+            fill_container: false
+            use_light_color: false
+            show_brightness_control: true
+            show_color_temp_control: false
+            show_color_control: true
+            entity: light.gledopto_gl_c_008p_light
+            name: Подсветка за телевизором
+          - type: custom:mushroom-light-card
+            fill_container: false
+            use_light_color: false
+            show_brightness_control: true
+            show_color_temp_control: false
+            show_color_control: true
+            entity: light.wled
+            name: Ночник
+      - type: custom:my-tv-card
+        samsung_7_series_40:
+          entity: media_player.samsung_7_series_40
+          display_name: 'Samsung 7 '
+          position: 1
+          fancy_borders: false
+          actions:
+            power:
+              click:
+                type: default
+                entity: null
+              dblclick:
+                type: no-action
+                entity: null
+              hold:
+                type: no-action
+                entity: null
+            source:
+              click:
+                type: default
+                entity: null
+              dblclick:
+                type: no-action
+                entity: null
+              hold:
+                type: no-action
+                entity: null
+            mute:
+              click:
+                type: default
+                entity: null
+              dblclick:
+                type: no-action
+                entity: null
+              hold:
+                type: no-action
+                entity: null
+            touchpad:
+              click:
+                type: default
+                entity: null
+              dblclick:
+                type: default
+                entity: null
+              hold:
+                type: default
+                entity: null
+            volume_up:
+              click:
+                type: default
+                entity: null
+              hold:
+                type: default
+                entity: null
+            volume_down:
+              click:
+                type: default
+                entity: null
+              hold:
+                type: default
+                entity: null
+            channel_up:
+              click:
+                type: default
+                entity: null
+              hold:
+                type: default
+                entity: null
+            channel_down:
+              click:
+                type: default
+                entity: null
+              hold:
+                type: default
+                entity: null
+          icons:
+            topicon: mdi:youtube-tv
+            power: mdi:power
+            channel_up: mdi:arrow-up-bold-circle
+            channel_down: mdi:arrow-down-bold-circle
+            source: mdi:logout-variant
+            mute: mdi:volume-variant-off
+            volume_up: mdi:volume-high
+            volume_down: mdi:volume-medium
+    badges: []
+  - title: 'Гостиная '
+    visible:
+      - user: b0cd9107b3384589bb7fad80f3c2f666
+      - user: 62f479e3316e4f018753d9db5025c1c3
+    cards:
+      - type: grid
+        square: false
+        columns: 1
+        cards:
+          - type: entities
+            entities:
+              - switch.liustra_gostinaia_switch_1
+              - switch.podsvetka_switch_1
+              - switch.podsvetka_switch_2
+              - light.potolok_levo
+              - light.potolok_pravo
+              - select.yandex_station_ff98f0293d210d02a1ff228c_equalizer
+              - remote.samsung_4k
+              - sensor.hp_ink_tank_wireless_410_series
+              - sensor.hp_ink_tank_wireless_410_series_black_ink
+              - sensor.hp_ink_tank_wireless_410_series_tri_color_ink
+            title: Гостиная
+          - type: media-control
+            entity: media_player.av_samsung_soundbar
+          - type: media-control
+            entity: media_player.samsung_4k
+          - type: media-control
+            entity: media_player.samsung_4k_2
+          - type: media-control
+            entity: media_player.yandex_station_ff98f0293d210d02a1ff228c
+  - title: Коридор
+    path: u
+    cards:
+      - type: grid
+        square: false
+        columns: 1
+        cards:
+          - type: entities
+            entities:
+              - sensor.keenetic_gateway_download_speed
+              - sensor.keenetic_gateway_upload_speed
+              - sensor.mi_smart_scale_5563_mass
+            title: Коридор
+          - type: thermostat
+            entity: climate.termostat
+            features:
+              - type: climate-hvac-modes
+                hvac_modes:
+                  - 'off'
+                  - cool
+                  - heat
+                  - fan_only
+                  - heat_cool
+                  - heat_cool
+                  - heat_cool
+      - type: custom:vacuum-card
+        entity: vacuum.roborock_s7
+        map: image.roborock_s7
+  - title: 'Кухня '
+    path: un
+    cards:
+      - type: entities
+        entities:
+          - switch.gazovyi_kran_switch_1
+        title: Кухня
