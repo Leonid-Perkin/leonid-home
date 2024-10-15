@@ -1,0 +1,98 @@
+= Installing Home Assistant on OrangePi 5 Board
+
+This tutorial will enable the use of Home Assistant on an OrangePi 5 board with the following characteristics: 
+
+* OrangePi Debian OS
+* OS running on a SDCard
+* Home Assistant Supervised Instalation
+
+The steps are a compilation with few modifications from instructions found over the web. Links are at the end.
+
+//-
+. Download Debian image from http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/service-and-support/Orange-pi-5.html
+. Select latest server release. Bullseye on publication of this tutorial
+. Unzip file and burn it to SDCard.
+. Stick SDCard into board and start it. It takes just a few seconds to complete startup.
+** SSH is enabled by default, you can use it to access. Username: orangepi, Password: orangepi
+. Run the following commands as root (`sudo su -`). Root password `orangepi`
+. Update packages
+
+  apt update
+  apt upgrade
++
+. Install required packages
+
+  apt install \
+  apparmor \
+  jq \
+  wget \
+  curl \
+  udisks2 \
+  libglib2.0-bin \
+  network-manager \
+  dbus \
+  lsb-release \
+  systemd-journal-remote -y
+
+. Run `orangepi-config`
+.. System -> Bootenv. Add the following lines:
+
+  extraargs=apparmor=1 security=apparmor
+  systemd.unified_cgroup_hierarchy=0
++
+The lines enable AppArmor and CGroupV1 respectively
++
+.. Save it, then Install
+.. Reboot for changes to take effect
+. Alternatively you can execute the following commands
+
+  echo "extraargs=apparmor=1 security=apparmor" >> /boot/orangepiEnv.txt
+  sed -i -e "1 s/$/ systemd.unified_cgroup_hierarchy=0/" /boot/orangepiEnv.txt
+  update-initramfs -u
+  reboot
++
+. After reboot, check
+** Apparmor
+  
+ systemctl status apparmor.service
++
+You should see a line saying `active (excited)`
++
+** Cgroup
+
+ findmnt -lo source,target,fstype,options -t cgroup,cgroup2
++
+You should see many lines with `cgroup` in `source` column
++
+. Run as root `sudo su -`
+. Install DockerCE
+
+  curl -fsSL get.docker.com | sh
+
+. Install Home Assistant OS Agent
+.. Download and install the latest version from https://github.com/home-assistant/os-agent/releases/latest. Look for `aarch64.deb` file. For instance:
+
+  wget https://github.com/home-assistant/os-agent/releases/download/1.5.1/os-agent_1.5.1_linux_aarch64.deb
+  dpkg -i os-agent_1.5.1_linux_aarch64.deb
+  
+.. Test instalation by running
+
+  gdbus introspect --system --dest io.hass.os --object-path /io/hass/os
++
+Some results in JSON format should be returned
++
+. Install Home Assistant Supervised
+
+  wget https://github.com/home-assistant/supervised-installer/releases/latest/download/homeassistant-supervised.deb
+  apt install ./homeassistant-supervised.deb
++
+.. When prompted, select `qemuarm-64` machine type. I'm not sure that's the best option, but it works.
+. Just wait until instalation is completed (it should take a few seconds). Some warnings are excpected, since this OS is a custom Debian build.
+.. Try to access `http://orangepi5.local:8123`. It should work, if not use host IP. If it still doesn't work reboot machine and try again. If it still doesn't work, go back to step 1 and review everything.
+
+[bibliography]
+== References
+
+* https://github.com/home-assistant/supervised-installer[Home Assistant Supervised Installer]
+* https://community.home-assistant.io/t/orange-pi-5-with-home-assistant/498585/17[Home Assistant Comunity Forums]
+* https://github.com/home-assistant/os-agent/tree/main#using-home-assistant-supervised-on-debian[Home Assistant OS Agent]
